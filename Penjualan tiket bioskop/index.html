@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Penjualan Tiket Bioskop</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Penjualan Tiket Bioskop</h1>
+    <form id="ticketForm">
+      <label for="name">Nama Pembeli:</label>
+      <input type="text" id="name" placeholder="Masukkan nama Anda">
+
+      <label for="ticketType">Jenis Tiket:</label>
+      <select id="ticketType">
+        <option>Pilih</option>
+        <option value="100000">Reguler - Rp100,000</option>
+        <option value="150000">Ultra XD - Rp150,000</option>
+        <option value="200000">Gold - Rp200,000</option>
+      </select>
+
+      <label for="quantity">Jumlah Tiket:</label>
+      <input type="number" id="quantity" value="1" min="1">
+
+      <label for="payment">Pembayaran:</label>
+      <input type="number" id="payment" placeholder="Masukkan jumlah uang pembayaran">
+
+      <button type="button" onclick="calculateTotal()">Hitung Total</button>
+
+      <div class="result" id="result"></div>
+    </form>
+  </div>
+
+  <script>
+    function calculateTotal() {
+      const name = document.getElementById('name').value;
+      const ticketPrice = parseInt(document.getElementById('ticketType').value);
+      const quantity = parseInt(document.getElementById('quantity').value);
+      const payment = parseInt(document.getElementById('payment').value);
+
+      if (name === '' || isNaN(payment)) {
+        alert("Harap masukkan nama dan jumlah pembayaran dengan benar.");
+        return;
+      }
+
+      const totalPrice = ticketPrice * quantity;
+      const change = payment - totalPrice;
+
+      if (change < 0) {
+        document.getElementById('result').innerHTML = "Uang Anda kurang. Total yang harus dibayar: Rp" + totalPrice;
+      } else {
+        document.getElementById('result').innerHTML =
+          "Nama Pembeli: " + name + "<br>" +
+          "Jenis Tiket: " + document.getElementById('ticketType').options[document.getElementById('ticketType').selectedIndex].text + "<br>" +
+          "Jumlah Tiket: " + quantity + "<br>" +
+          "Total Harga: Rp" + totalPrice + "<br>" +
+          "Pembayaran: Rp" + payment + "<br>" +
+          "Kembalian: Rp" + change;
+      }
+    }
+  </script>
+
+</body>
+
+</html>
